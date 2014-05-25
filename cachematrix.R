@@ -6,12 +6,15 @@
 ## inverse once computed
 makeCacheMatrix <- function(x = matrix(), ...) {
     i <- NULL
-    x <- matrix(x, ...) ## to be able to make matrix with initialized arguments
+    
+    ## to be able to make matrix with initialized arguments
+    ## e.g. m <- makeCacheMatrix(1,2,2) which is a 2x2 matrix with 1 for each elemen
+    x <- matrix(x, ...) 
     
     set <- function(y, ...){
-        ## sets a new matrix in place of the intialized/old one based on 'y, ...'
+        ## replaces the intialized/old matrix based on 'y, ...' values
         x <<- matrix(y, ...) 
-        i <<- NULL 
+        i <<- NULL ## resets the inverse
     }
     
     get <- function() x #returns the cached matrix
