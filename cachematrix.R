@@ -4,17 +4,19 @@
 
 ## This function creates a special matrix with space to set and get its cached 
 ## inverse once computed
-makeCacheMatrix <- function(x = matrix()) {
+makeCacheMatrix <- function(x = matrix(), ...) {
     i <- NULL
+    x <- matrix(x, ...) ## to be able to make matrix with initialized arguments
     
-    set <- function(y){
-        x <<- y ## x, in the (already created) special matrix object, is replaced with y
-        i <<- NULL ##...similarly
+    set <- function(y, ...){
+        ## sets a new matrix in place of the intialized/old one based on 'y, ...'
+        x <<- matrix(y, ...) 
+        i <<- NULL 
     }
     
-    get <- function() x
+    get <- function() x #returns the cached matrix
     
-    ## sets the matrix inverse to the supplied 'inverse' value
+    ## sets the cached inverted matrix to the supplied 'inverse' value
     setInverse <- function(inverse) i <<- inverse
     
     getInverse <- function() i
