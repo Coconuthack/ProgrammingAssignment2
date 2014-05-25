@@ -1,7 +1,9 @@
-## Put comments here that give an overall description of what your
-## functions do
+## The two functions below  make matrix computations more efficient by
+## providing a way to create a matrix, compute its inverse and cache it for 
+## future computation 
 
-## The function below creates an matrix consisting of the inputted value matrix and has space to cache its inverse once computed
+## This function creates a special matrix with space to set and get its cached 
+## inverse once computed
 makeCacheMatrix <- function(x = matrix()) {
     i <- NULL
     set <- function(y){
@@ -20,11 +22,12 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Write a short comment describing this function
-
+## This function solves the inverse of the special matrix and caches it in the original object, 
+## and returns the cached matrix
 cacheSolve <- function(x, ...) {
     i <- x$getInverse()
     
+    ## returns the cached inverse if already compute ( and exits the function )
     if(!is.null(i)){
         message("Retrieving cached data")
         return(i)
