@@ -6,15 +6,21 @@
 ## inverse once computed
 makeCacheMatrix <- function(x = matrix()) {
     i <- NULL
+    
     set <- function(y){
-        x <<- y
-        i <<- NULL
+        x <<- y ## x, in the (already created) special matrix object, is replaced with y
+        i <<- NULL ##...similarly
     }
+    
     get <- function() x
+    
     ## sets the matrix inverse to the supplied 'inverse' value
-    setInverse <- function(inverse) i <<- inverse 
-
+    setInverse <- function(inverse) i <<- inverse
+    
     getInverse <- function() i
+    
+    ## returns a list with the values as the set and get functions
+    ## and makes the functions accessible via subsetting e.g. x$set(matrix) 
     list( set = set,
           get = get,
           setInverse = setInverse,
@@ -33,10 +39,15 @@ cacheSolve <- function(x, ...) {
         return(i)
     }
     
-    matrix <- x$get
-    i <- solve(x, ...)
-    ## stores the solved inverse matrix to the special matrix object
+    ## assignes the matrix, that is stored in the special matrix object, to 'matrix'
+    matrix <- x$get()
+    
+    ## solves teh inverse of the retrieved matrix
+    i <- solve(matrix, ...)
+    
+    ## stores the solved inverse of the matrix in the special matrix object
     x$setInverse(i)
+    
     ## Return a matrix that is the inverse of 'x'
     i
 }
